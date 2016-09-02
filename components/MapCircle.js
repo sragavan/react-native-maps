@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import {
   View,
-  requireNativeComponent,
 } from 'react-native';
+import { decorateMapComponent, USES_DEFAULT_IMPLEMENTATION, NOT_SUPPORTED } from './common';
 
 const propTypes = {
   ...View.propTypes,
@@ -123,6 +123,7 @@ const defaultProps = {
 
 class MapCircle extends React.Component {
   render() {
+    const AIRMapCircle = this.airComponent();
     return (
       <AIRMapCircle {...this.props} />
     );
@@ -132,6 +133,12 @@ class MapCircle extends React.Component {
 MapCircle.propTypes = propTypes;
 MapCircle.defaultProps = defaultProps;
 
-const AIRMapCircle = requireNativeComponent('AIRMapCircle', MapCircle);
-
-module.exports = MapCircle;
+module.exports = decorateMapComponent(MapCircle, {
+  componentType: 'Circle',
+  providers: {
+    google: {
+      ios: NOT_SUPPORTED,
+      android: USES_DEFAULT_IMPLEMENTATION,
+    },
+  },
+});

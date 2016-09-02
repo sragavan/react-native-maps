@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import {
   View,
-  requireNativeComponent,
 } from 'react-native';
+import { decorateMapComponent, USES_DEFAULT_IMPLEMENTATION, NOT_SUPPORTED } from './common';
 
 const propTypes = {
   ...View.propTypes,
@@ -128,6 +128,7 @@ const defaultProps = {
 
 class MapPolygon extends React.Component {
   render() {
+    const AIRMapPolygon = this.airComponent();
     return (
       <AIRMapPolygon {...this.props} />
     );
@@ -137,6 +138,12 @@ class MapPolygon extends React.Component {
 MapPolygon.propTypes = propTypes;
 MapPolygon.defaultProps = defaultProps;
 
-const AIRMapPolygon = requireNativeComponent('AIRMapPolygon', MapPolygon);
-
-module.exports = MapPolygon;
+module.exports = decorateMapComponent(MapPolygon, {
+  componentType: 'Polygon',
+  providers: {
+    google: {
+      ios: NOT_SUPPORTED,
+      android: USES_DEFAULT_IMPLEMENTATION,
+    },
+  },
+});

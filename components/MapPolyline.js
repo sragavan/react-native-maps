@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import {
   View,
-  requireNativeComponent,
 } from 'react-native';
+import { decorateMapComponent, USES_DEFAULT_IMPLEMENTATION, NOT_SUPPORTED } from './common';
 
 const propTypes = {
   ...View.propTypes,
@@ -123,6 +123,7 @@ const defaultProps = {
 
 class MapPolyline extends React.Component {
   render() {
+    const AIRMapPolyline = this.airComponent();
     return (
       <AIRMapPolyline {...this.props} />
     );
@@ -132,6 +133,12 @@ class MapPolyline extends React.Component {
 MapPolyline.propTypes = propTypes;
 MapPolyline.defaultProps = defaultProps;
 
-const AIRMapPolyline = requireNativeComponent('AIRMapPolyline', MapPolyline);
-
-module.exports = MapPolyline;
+module.exports = decorateMapComponent(MapPolyline, {
+  componentType: 'Polyline',
+  providers: {
+    google: {
+      ios: NOT_SUPPORTED,
+      android: USES_DEFAULT_IMPLEMENTATION,
+    },
+  },
+});

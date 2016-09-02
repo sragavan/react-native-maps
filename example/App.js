@@ -5,8 +5,8 @@ import {
   TouchableOpacity,
   ScrollView,
   Text,
+  Switch,
 } from 'react-native';
-
 import DisplayLatLng from './examples/DisplayLatLng';
 import ViewsAsMarkers from './examples/ViewsAsMarkers';
 import EventListener from './examples/EventListener';
@@ -23,6 +23,7 @@ import CachedMap from './examples/CachedMap';
 import LoadingMap from './examples/LoadingMap';
 import TakeSnapshot from './examples/TakeSnapshot';
 import FitToSuppliedMarkers from './examples/FitToSuppliedMarkers';
+import StaticMap from './examples/StaticMap';
 
 class App extends React.Component {
   constructor(props) {
@@ -30,6 +31,7 @@ class App extends React.Component {
 
     this.state = {
       Component: null,
+      useGoogleMaps: false,
     };
   }
 
@@ -56,11 +58,28 @@ class App extends React.Component {
     );
   }
 
+  renderGoogleSwitch() {
+    return (
+      <View>
+        <Text>Use GoogleMaps?</Text>
+        <Switch
+          onValueChange={(value) => this.setState({ useGoogleMaps: value })}
+          style={{ marginBottom: 10 }}
+          value={this.state.useGoogleMaps}
+        />
+      </View>
+    );
+  }
+
   renderExamples(examples) {
-    const { Component } = this.state;
+    const {
+      Component,
+      useGoogleMaps,
+    } = this.state;
+
     return (
       <View style={styles.container}>
-        {Component && <Component />}
+        {Component && <Component mapProvider={useGoogleMaps ? 'google' : null} />}
         {Component && this.renderBackButton()}
         {!Component &&
           <ScrollView
@@ -68,6 +87,7 @@ class App extends React.Component {
             contentContainerStyle={styles.scrollview}
             showsVerticalScrollIndicator={false}
           >
+            {this.renderGoogleSwitch()}
             {examples.map(example => this.renderExample(example))}
           </ScrollView>
         }
@@ -76,7 +96,23 @@ class App extends React.Component {
   }
 
   render() {
+    if (this.state.useGoogleMaps) {
+      return this.renderExamples([
+        [StaticMap, 'StaticMap'],
+        [DisplayLatLng, 'Tracking Position (incomplete)'],
+        [ViewsAsMarkers, 'Arbitrary Views as Markers'],
+        [EventListener, 'Events (incomplete)'],
+        [MarkerTypes, 'Image Based Markers'],
+        [DraggableMarkers, 'Draggable Markers'],
+        [Callouts, 'Custom Callouts'],
+        [Overlays, 'Circles, Polygons, and Polylines (ios error)'],
+        [DefaultMarkers, 'Default Markers'],
+        [TakeSnapshot, 'Take Snapshot (incomplete)'],
+      ]);
+    }
+
     return this.renderExamples([
+      [StaticMap, 'StaticMap'],
       [DisplayLatLng, 'Tracking Position'],
       [ViewsAsMarkers, 'Arbitrary Views as Markers'],
       [EventListener, 'Events'],

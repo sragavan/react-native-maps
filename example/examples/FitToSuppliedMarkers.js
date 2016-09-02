@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import {
   StyleSheet,
   View,
@@ -113,6 +113,7 @@ class FocusOnMarkers extends React.Component {
     return (
       <View style={styles.container}>
         <MapView
+          mapProvider={this.props.mapProvider}
           ref={ref => { this.map = ref; }}
           style={styles.map}
           initialRegion={{
@@ -147,6 +148,10 @@ class FocusOnMarkers extends React.Component {
     );
   }
 }
+
+FocusOnMarkers.propTypes = {
+  mapProvider: PropTypes.string,
+};
 
 const styles = StyleSheet.create({
   container: {

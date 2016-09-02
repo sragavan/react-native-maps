@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import {
   Text,
   View,
@@ -57,6 +57,7 @@ class CachedMap extends React.Component {
             >
               <Text>{region.name}</Text>
               <MapView
+                mapProvider={this.props.mapProvider}
                 style={{
                   width: mapSize,
                   height: mapSize,
@@ -83,6 +84,10 @@ class CachedMap extends React.Component {
     );
   }
 }
+
+CachedMap.propTypes = {
+  mapProvider: PropTypes.string,
+};
 
 const styles = StyleSheet.create({
   container: {
