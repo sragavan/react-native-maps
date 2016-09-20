@@ -9,18 +9,18 @@ platform :ios, '8.0'
 use_frameworks!
 
 target 'AirMapsExplorer' do
-	pod 'React', path: '../node_modules/react-native', :subspecs => [
-      'Core',
-      'RCTActionSheet',
-      'RCTGeolocation',
-      'RCTImage',
-      'RCTLinkingIOS',
-      'RCTNetwork',
-      'RCTSettings',
-      'RCTText',
-      'RCTVibration',
-      'RCTWebSocket'
-    ]
+  pod 'React', path: '../node_modules/react-native', :subspecs => [
+    'Core',
+    'RCTActionSheet',
+    'RCTGeolocation',
+    'RCTImage',
+    'RCTLinkingIOS',
+    'RCTNetwork',
+    'RCTSettings',
+    'RCTText',
+    'RCTVibration',
+    'RCTWebSocket'
+  ]
 
 # when not using frameworks  we can do this instead of including the source files in our project (1/4):
 # pod 'react-native-maps', path: '../../'

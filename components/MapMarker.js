@@ -9,10 +9,13 @@ import {
 } from 'react-native';
 
 import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
-import { decorateMapComponent, SUPPORTED, USES_DEFAULT_IMPLEMENTATION } from './common';
+import decorateMapComponent, {
+  SUPPORTED,
+  USES_DEFAULT_IMPLEMENTATION,
+} from './decorateMapComponent';
 
 const viewConfig = {
-  uiViewClassName: 'AIR?MapMarker',
+  uiViewClassName: 'AIR<provider>MapMarker',
   validAttributes: {
     coordinate: true,
   },

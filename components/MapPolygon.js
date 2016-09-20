@@ -2,7 +2,10 @@ import React, { PropTypes } from 'react';
 import {
   View,
 } from 'react-native';
-import { decorateMapComponent, USES_DEFAULT_IMPLEMENTATION, NOT_SUPPORTED } from './common';
+import decorateMapComponent, {
+  USES_DEFAULT_IMPLEMENTATION,
+  NOT_SUPPORTED,
+} from './decorateMapComponent';
 
 const propTypes = {
   ...View.propTypes,

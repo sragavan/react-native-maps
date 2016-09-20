@@ -3,7 +3,10 @@ import {
   View,
   StyleSheet,
 } from 'react-native';
-import { decorateMapComponent, SUPPORTED, USES_DEFAULT_IMPLEMENTATION } from './common';
+import decorateMapComponent, {
+  SUPPORTED,
+  USES_DEFAULT_IMPLEMENTATION,
+} from './decorateMapComponent';
 
 const propTypes = {
   ...View.propTypes,

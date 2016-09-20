@@ -15,14 +15,14 @@ import MapPolygon from './MapPolygon';
 import MapCircle from './MapCircle';
 import MapCallout from './MapCallout';
 import {
-  contextTypes,
-  airMapName,
-  AIRGoogleMapIsInstalled,
+  contextTypes as childContextTypes,
+  getAirMapName,
+  googleMapIsInstalled,
   createNotSupportedComponent,
-} from './common';
+} from './decorateMapComponent';
 
 const viewConfig = {
-  uiViewClassName: 'AIR?Map',
+  uiViewClassName: 'AIR<provider>Map',
   validAttributes: {
     region: true,
   },
@@ -31,13 +31,11 @@ const viewConfig = {
 const propTypes = {
   ...View.propTypes,
   /**
-   * When mapProvider is "google", we will use GoogleMaps.
+   * When provider is "google", we will use GoogleMaps.
    * Any value other than "google" will default to using
    * MapKit in iOS or GoogleMaps in android as the map provider.
    */
-  mapProvider: PropTypes.oneOf([
-    null,
-    undefined,
+  provider: PropTypes.oneOf([
     'google',
   ]),
 
@@ -342,7 +340,7 @@ class MapView extends React.Component {
   }
 
   getChildContext() {
-    return { mapProvider: this.props.mapProvider };
+    return { provider: this.props.provider };
   }
 
   componentDidMount() {
@@ -426,11 +424,11 @@ class MapView extends React.Component {
   }
 
   _uiManagerCommand(name) {
-    return NativeModules.UIManager[airMapName(this.props.mapProvider)].Commands[name];
+    return NativeModules.UIManager[getAirMapName(this.props.provider)].Commands[name];
   }
 
   _mapManagerCommand(name) {
-    return NativeModules[`${airMapName(this.props.mapProvider)}Manager`][name];
+    return NativeModules[`${getAirMapName(this.props.provider)}Manager`][name];
   }
 
   _getHandle() {
@@ -486,7 +484,7 @@ class MapView extends React.Component {
       };
     }
 
-    const AIRMap = airMapComponent(this.props.mapProvider);
+    const AIRMap = airMapComponent(this.props.provider);
 
     return (
       <AIRMap
@@ -499,7 +497,7 @@ class MapView extends React.Component {
 
 MapView.propTypes = propTypes;
 MapView.viewConfig = viewConfig;
-MapView.childContextTypes = contextTypes;
+MapView.childContextTypes = childContextTypes;
 
 const nativeComponent = Component => requireNativeComponent(Component, MapView, {
   nativeOnly: {
@@ -514,10 +512,10 @@ const airMaps = {
 if (Platform.OS === 'android') {
   airMaps.google = airMaps.default;
 } else {
-  airMaps.google = AIRGoogleMapIsInstalled ? nativeComponent('AIRGoogleMap') :
+  airMaps.google = googleMapIsInstalled ? nativeComponent('AIRGoogleMap') :
     createNotSupportedComponent('react-native-maps: AirGoogleMaps dir must be added to your xCode project to support GoogleMaps on iOS.'); // eslint-disable-line max-len
 }
-const airMapComponent = mapProvider => airMaps[mapProvider || 'default'];
+const airMapComponent = provider => airMaps[provider || 'default'];
 
 MapView.Marker = MapMarker;
 MapView.Polyline = MapPolyline;
