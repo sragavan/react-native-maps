@@ -57,7 +57,7 @@ class CachedMap extends React.Component {
             >
               <Text>{region.name}</Text>
               <MapView
-                mapProvider={this.props.mapProvider}
+                provider={this.props.provider}
                 style={{
                   width: mapSize,
                   height: mapSize,
@@ -86,7 +86,7 @@ class CachedMap extends React.Component {
 }
 
 CachedMap.propTypes = {
-  mapProvider: PropTypes.string,
+  provider: PropTypes.string,
 };
 
 const styles = StyleSheet.create({

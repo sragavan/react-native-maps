@@ -45,7 +45,7 @@ class MarkerTypes extends React.Component {
     return (
       <View style={styles.container}>
         <MapView
-          mapProvider={this.props.mapProvider}
+          provider={this.props.provider}
           ref={ref => { this.map = ref; }}
           style={styles.map}
           initialRegion={{
@@ -100,7 +100,7 @@ class MarkerTypes extends React.Component {
 }
 
 MarkerTypes.propTypes = {
-  mapProvider: PropTypes.string,
+  provider: PropTypes.string,
 };
 
 const styles = StyleSheet.create({

@@ -325,7 +325,7 @@ class AnimatedViews extends React.Component {
           onMoveShouldSetPanResponder={this.onMoveShouldSetPanResponder}
         >
           <MapView.Animated
-            mapProvider={this.props.mapProvider}
+            provider={this.props.provider}
             style={styles.map}
             region={region}
             onRegionChange={this.onRegionChange}
@@ -387,7 +387,7 @@ class AnimatedViews extends React.Component {
 }
 
 AnimatedViews.propTypes = {
-  mapProvider: PropTypes.string,
+  provider: PropTypes.string,
 };
 
 const styles = StyleSheet.create({

@@ -79,7 +79,7 @@ class App extends React.Component {
 
     return (
       <View style={styles.container}>
-        {Component && <Component mapProvider={useGoogleMaps ? 'google' : null} />}
+        {Component && <Component provider={useGoogleMaps ? 'google' : null} />}
         {Component && this.renderBackButton()}
         {!Component &&
           <ScrollView

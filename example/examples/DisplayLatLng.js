@@ -56,7 +56,7 @@ class DisplayLatLng extends React.Component {
     return (
       <View style={styles.container}>
         <MapView
-          mapProvider={this.props.mapProvider}
+          provider={this.props.provider}
           ref={ref => { this.map = ref; }}
           mapType="terrain"
           style={styles.map}
@@ -89,7 +89,7 @@ class DisplayLatLng extends React.Component {
 }
 
 DisplayLatLng.propTypes = {
-  mapProvider: PropTypes.string,
+  provider: PropTypes.string,
 };
 
 const styles = StyleSheet.create({

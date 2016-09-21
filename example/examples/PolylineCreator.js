@@ -68,7 +68,7 @@ class PolylineCreator extends React.Component {
     return (
       <View style={styles.container}>
         <MapView
-          mapProvider={this.props.mapProvider}
+          provider={this.props.provider}
           style={styles.map}
           initialRegion={this.state.region}
           scrollEnabled={false}
@@ -109,7 +109,7 @@ class PolylineCreator extends React.Component {
 }
 
 PolylineCreator.propTypes = {
-  mapProvider: PropTypes.string,
+  provider: PropTypes.string,
 };
 
 const styles = StyleSheet.create({

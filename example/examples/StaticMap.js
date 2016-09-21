@@ -46,7 +46,7 @@ class StaticMap extends React.Component {
           <Text>cause</Text>
           <Text>the</Text>
           <MapView
-            mapProvider={this.props.mapProvider}
+            provider={this.props.provider}
             style={styles.map}
             scrollEnabled={false}
             zoomEnabled={false}
@@ -96,7 +96,7 @@ class StaticMap extends React.Component {
 }
 
 StaticMap.propTypes = {
-  mapProvider: PropTypes.string,
+  provider: PropTypes.string,
 };
 
 const styles = StyleSheet.create({

@@ -53,7 +53,7 @@ class DefaultMarkers extends React.Component {
     return (
       <View style={styles.container}>
         <MapView
-          mapProvider={this.props.mapProvider}
+          provider={this.props.provider}
           style={styles.map}
           initialRegion={this.state.region}
           onPress={(e) => this.onMapPress(e)}
@@ -77,7 +77,7 @@ class DefaultMarkers extends React.Component {
 }
 
 DefaultMarkers.propTypes = {
-  mapProvider: PropTypes.string,
+  provider: PropTypes.string,
 };
 
 const styles = StyleSheet.create({

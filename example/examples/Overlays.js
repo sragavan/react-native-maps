@@ -75,7 +75,7 @@ class Overlays extends React.Component {
     return (
       <View style={styles.container}>
         <MapView
-          mapProvider={this.props.mapProvider}
+          provider={this.props.provider}
           style={styles.map}
           initialRegion={region}
         >
@@ -109,7 +109,7 @@ class Overlays extends React.Component {
 }
 
 Overlays.propTypes = {
-  mapProvider: PropTypes.string,
+  provider: PropTypes.string,
 };
 
 const styles = StyleSheet.create({
