@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Platform,
   View,
   StyleSheet,
   TouchableOpacity,
@@ -25,13 +26,24 @@ import TakeSnapshot from './examples/TakeSnapshot';
 import FitToSuppliedMarkers from './examples/FitToSuppliedMarkers';
 import StaticMap from './examples/StaticMap';
 
+function makeExampleMapper(useGoogleMaps) {
+  if (useGoogleMaps) {
+    return example => [
+      example[0],
+      [example[1], example[3]].filter(Boolean).join(' '),
+    ];
+  }
+  return example => example;
+}
+
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       Component: null,
-      useGoogleMaps: false,
+      showGoogleMapsSwitch: Platform.OS === 'ios',
+      useGoogleMaps: Platform.OS === 'android',
     };
   }
 
@@ -74,6 +86,7 @@ class App extends React.Component {
   renderExamples(examples) {
     const {
       Component,
+      showGoogleMapsSwitch,
       useGoogleMaps,
     } = this.state;
 
@@ -87,7 +100,7 @@ class App extends React.Component {
             contentContainerStyle={styles.scrollview}
             showsVerticalScrollIndicator={false}
           >
-            {this.renderGoogleSwitch()}
+            {showGoogleMapsSwitch && this.renderGoogleSwitch()}
             {examples.map(example => this.renderExample(example))}
           </ScrollView>
         }
@@ -96,40 +109,29 @@ class App extends React.Component {
   }
 
   render() {
-    if (this.state.useGoogleMaps) {
-      return this.renderExamples([
-        [StaticMap, 'StaticMap'],
-        [DisplayLatLng, 'Tracking Position (incomplete)'],
-        [ViewsAsMarkers, 'Arbitrary Views as Markers'],
-        [EventListener, 'Events (incomplete)'],
-        [MarkerTypes, 'Image Based Markers'],
-        [DraggableMarkers, 'Draggable Markers'],
-        [Callouts, 'Custom Callouts'],
-        [Overlays, 'Circles, Polygons, and Polylines (ios error)'],
-        [DefaultMarkers, 'Default Markers'],
-        [TakeSnapshot, 'Take Snapshot (incomplete)'],
-      ]);
-    }
-
     return this.renderExamples([
-      [StaticMap, 'StaticMap'],
-      [DisplayLatLng, 'Tracking Position'],
-      [ViewsAsMarkers, 'Arbitrary Views as Markers'],
-      [EventListener, 'Events'],
-      [MarkerTypes, 'Image Based Markers'],
-      [DraggableMarkers, 'Draggable Markers'],
+    // [<component>, <component description>, <Google compatible>, <Google add'l description>]
+      [StaticMap, 'StaticMap', true],
+      [DisplayLatLng, 'Tracking Position', true, '(incomplete)'],
+      [ViewsAsMarkers, 'Arbitrary Views as Markers', true],
+      [EventListener, 'Events', true, '(incomplete)'],
+      [MarkerTypes, 'Image Based Markers', true],
+      [DraggableMarkers, 'Draggable Markers', true],
       [PolygonCreator, 'Polygon Creator'],
       [PolylineCreator, 'Polyline Creator'],
       [AnimatedViews, 'Animating with MapViews'],
       [AnimatedMarkers, 'Animated Marker Position'],
-      [Callouts, 'Custom Callouts'],
-      [Overlays, 'Circles, Polygons, and Polylines'],
-      [DefaultMarkers, 'Default Markers'],
-      [TakeSnapshot, 'Take Snapshot'],
+      [Callouts, 'Custom Callouts', true],
+      [Overlays, 'Circles, Polygons, and Polylines', true, '(ios error)'],
+      [DefaultMarkers, 'Default Markers', true],
+      [TakeSnapshot, 'Take Snapshot', true, '(incomplete)'],
       [CachedMap, 'Cached Map'],
       [LoadingMap, 'Map with loading'],
       [FitToSuppliedMarkers, 'Focus Map On Markers'],
-    ]);
+    ]
+    .filter(example => example[2] || !this.state.useGoogleMaps)
+    .map(makeExampleMapper(this.state.useGoogleMaps))
+    );
   }
 }
 
