@@ -446,10 +446,7 @@ class MapView extends React.Component {
         break;
 
       case 'ios':
-        this._mapManagerCommand(name).apply(
-          this._mapManagerCommand(name),
-          [this._getHandle(), ...args]
-        );
+        this._mapManagerCommand(name)(this._getHandle(), ...args);
         break;
 
       default:
@@ -484,7 +481,7 @@ class MapView extends React.Component {
       };
     }
 
-    const AIRMap = airMapComponent(this.props.provider);
+    const AIRMap = getAirMapComponent(this.props.provider);
 
     return (
       <AIRMap
@@ -515,7 +512,7 @@ if (Platform.OS === 'android') {
   airMaps.google = googleMapIsInstalled ? nativeComponent('AIRGoogleMap') :
     createNotSupportedComponent('react-native-maps: AirGoogleMaps dir must be added to your xCode project to support GoogleMaps on iOS.'); // eslint-disable-line max-len
 }
-const airMapComponent = provider => airMaps[provider || 'default'];
+const getAirMapComponent = provider => airMaps[provider || 'default'];
 
 MapView.Marker = MapMarker;
 MapView.Polyline = MapPolyline;

@@ -126,7 +126,7 @@ const defaultProps = {
 
 class MapCircle extends React.Component {
   render() {
-    const AIRMapCircle = this.airComponent();
+    const AIRMapCircle = this.getAirComponent();
     return (
       <AIRMapCircle {...this.props} />
     );

@@ -14,7 +14,6 @@
 @interface AIRGoogleMapMarker : UIView
 
 @property (nonatomic, weak) RCTBridge *bridge;
-//@property (nonatomic, weak) AIRGoogleMap *map;
 @property (nonatomic, strong) AIRGoogleMapCallout *calloutView;
 @property (nonatomic, strong) NSString *identifier;
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;

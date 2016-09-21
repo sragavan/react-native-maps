@@ -126,7 +126,7 @@ const defaultProps = {
 
 class MapPolyline extends React.Component {
   render() {
-    const AIRMapPolyline = this.airComponent();
+    const AIRMapPolyline = this.getAirComponent();
     return (
       <AIRMapPolyline {...this.props} />
     );

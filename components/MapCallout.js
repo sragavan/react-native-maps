@@ -20,7 +20,7 @@ const defaultProps = {
 
 class MapCallout extends React.Component {
   render() {
-    const AIRMapCallout = this.airComponent();
+    const AIRMapCallout = this.getAirComponent();
     return <AIRMapCallout {...this.props} style={[styles.callout, this.props.style]} />;
   }
 }

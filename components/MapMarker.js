@@ -229,16 +229,13 @@ class MapMarker extends React.Component {
       case 'android':
         NativeModules.UIManager.dispatchViewManagerCommand(
           this._getHandle(),
-          this.uiManagerCommand(name),
+          this.getUIManagerCommand(name),
           args
         );
         break;
 
       case 'ios':
-        this.mapManagerCommand(name).apply(
-          this.mapManagerCommand(name),
-          [this._getHandle(), ...args]
-        );
+        this.getMapManagerCommand(name)(this._getHandle(), ...args);
         break;
 
       default:
@@ -253,7 +250,7 @@ class MapMarker extends React.Component {
       image = image.uri;
     }
 
-    const AIRMapMarker = this.airComponent();
+    const AIRMapMarker = this.getAirComponent();
 
     return (
       <AIRMapMarker

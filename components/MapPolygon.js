@@ -131,7 +131,7 @@ const defaultProps = {
 
 class MapPolygon extends React.Component {
   render() {
-    const AIRMapPolygon = this.airComponent();
+    const AIRMapPolygon = this.getAirComponent();
     return (
       <AIRMapPolygon {...this.props} />
     );
